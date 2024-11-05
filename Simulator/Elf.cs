@@ -8,12 +8,7 @@ public class Elf : Creature
     public int Agility
     {
         get => _agility;
-        private set
-        {
-            if (value < 0) { _agility = 0; }
-            else if (value > 10) { _agility = 10; }
-            else { _agility = value; }
-        }
+        private set => _agility = Validator.Limiter(value, 0, 10);
     }
 
     public void Sing() 
@@ -40,6 +35,11 @@ public class Elf : Creature
     public override int Power
     {
         get { return 8 * Level + 2 * Agility; }
+    }
+
+    public override string Info
+    {
+        get { return $"{Name} [{Level}][{Agility}]"; }
     }
 
 

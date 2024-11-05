@@ -1,6 +1,6 @@
 ﻿namespace Simulator;
 
-internal class Animals
+public class Animals
 {
     private string _description = "Unknown";
     public uint Size { get; set; } = 3;
@@ -13,32 +13,25 @@ internal class Animals
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                value = "###";
+                _description = "###";
             }
             else
             {
-                value = value.Trim();
-
-                if (value.Length > 15) 
-                {
-                    value = value.Substring(0, 15).TrimEnd();
-                }
-
-                while (value.Length < 3)
-                {
-                    value += "#";
-                }
+                _description = Validator.Shortener(value, 3, 15, '#');
             }
 
-            if (char.IsLower(value[0]))
+            if (_description.Length > 0 && char.IsLower(_description[0]))
             {
-                value = char.ToUpper(value[0]) + value.Substring(1);
+                _description = char.ToUpper(_description[0]) + _description.Substring(1);
             }
-
-            _description = value;
         }
     }
 
-    public string Info => $"{Description} <{Size}>";
+    public virtual string Info => $"{Description} <{Size}>";
+
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
+    }
 }
 

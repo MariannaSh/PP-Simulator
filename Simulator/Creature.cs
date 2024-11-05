@@ -17,34 +17,11 @@ public abstract class Creature
             }
             else
             {
-                value = value.Trim(); 
-            }
-
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                _name = "###";
-            }
-            else
-            {
-                
-                if (value.Length > 25)
+                _name = Validator.Shortener(value.Trim(), 3, 25, '#');
+                if (_name.Length > 0 && char.IsLower(_name[0]))
                 {
-                    value = value.Substring(0, 25).TrimEnd();
+                    _name = char.ToUpper(_name[0]) + _name.Substring(1);
                 }
-
-                
-                if (value.Length < 3)
-                {
-                    value = value.PadRight(3, '#');
-                }
-
-                
-                if (char.IsLower(value[0]))
-                {
-                    value = char.ToUpper(value[0]) + value.Substring(1);
-                }
-
-                _name = value; 
             }
         }
     }
@@ -53,15 +30,7 @@ public abstract class Creature
     public int Level
     {
         get => _level;
-        init
-        {
-            if (value < 1)
-                _level = 1;
-            else if (value > 10)
-                _level = 10;
-            else
-                _level = value;
-        }
+        init => _level = Validator.Limiter(value, 1, 10);
     }
 
     public void Upgrade()
@@ -83,7 +52,7 @@ public abstract class Creature
 
     public abstract void SayHi();
 
-    public string Info => $"{Name} [{Level}]";
+    public abstract string Info { get; }
 
 
     public void Go(Direction direction) 
@@ -106,5 +75,11 @@ public abstract class Creature
 
 
     public abstract int Power { get; }
+
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
+    }
+
 }
 

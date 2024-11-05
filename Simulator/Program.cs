@@ -4,12 +4,12 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Console.WriteLine("Starting Simulator!\n");
 
-        Animals animal = new Animals { Description = "Dogs" };
-        Console.WriteLine(animal.Info);
+        Creature c = new Elf("Elandor", 5, 3);
+        Console.WriteLine(c);
 
         Lab4a();
+        Lab4b();
     }
 
     static void Lab4a()
@@ -38,11 +38,32 @@ internal class Program
         e,
         new Orc("Morgash", 3, 8),
         new Elf("Elandor", 5, 3)
-    };
+        };
         foreach (Creature creature in creatures)
         {
             Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
         }
     }
+
+    static void Lab4b()
+    {
+        object[] myObjects = {
+        new Animals() { Description = "dogs"},
+        new Birds { Description = "  eagles ", Size = 10 },
+        new Elf("e", 15, -3),
+        new Orc("morgash", 6, 4)
+    };
+        Console.WriteLine("\nMy objects:");
+        foreach (var o in myObjects) Console.WriteLine(o);
+        /*
+            My objects:
+            ANIMALS: Dogs <3>
+            BIRDS: Eagles (fly+) <10>
+            ELF: E## [10][0]
+            ORC: Morgash [6][4]
+        */
+    }
+
+
 
 }
