@@ -30,16 +30,16 @@ public readonly struct Point
     {
         switch (direction)
         {
-            case Direction.Up:
+            case Direction.Up: //upRight
                 return new Point(X + 1, Y + 1);
 
-            case Direction.Right:
+            case Direction.Right: //DownRight 
                 return new Point(X + 1, Y - 1);
 
-            case Direction.Down:
+            case Direction.Down: //DownLeft
                 return new Point(X - 1, Y - 1);
 
-            case Direction.Left:
+            case Direction.Left: //UpLeft
                 return new Point(X - 1, Y + 1);
             default:
                 return this;
