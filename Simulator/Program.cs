@@ -1,69 +1,44 @@
 ﻿namespace Simulator;
 
-internal class Program
+public class Program
 {
     private static void Main(string[] args)
     {
+        Point p = new(10, 25);
+        Console.WriteLine(p.Next(Direction.Right));          // (11, 25)
+        Console.WriteLine(p.NextDiagonal(Direction.Right));  // (11, 24)
 
-        Creature c = new Elf("Elandor", 5, 3);
-        Console.WriteLine(c);
-
-        Lab4a();
-        Lab4b();
+        Lab5a();
+  
     }
 
-    static void Lab4a()
+    static void Lab5a()
     {
-        Console.WriteLine("HUNT TEST\n");
-        var o = new Orc() { Name = "Gorbag", Rage = 7 };
-        o.SayHi();
-        for (int i = 0; i < 10; i++)
+        try
         {
-            o.Hunt();
-            o.SayHi();
+            Rectangle rect1 = new Rectangle(5, 5, 1, 1);
+            Console.WriteLine("Utworzono pomyślnie: " + rect1.ToString());
         }
+        catch (ArgumentException ex) { Console.WriteLine(ex.Message); }
 
-        Console.WriteLine("\nSING TEST\n");
-        var e = new Elf("Legolas", agility: 2);
-        e.SayHi();
-        for (int i = 0; i < 10; i++)
+        try
         {
-            e.Sing();
-            e.SayHi();
+            Rectangle rect2 = new Rectangle(2, 2, 2, 6);
         }
+        catch (ArgumentException ex) { Console.WriteLine(ex.Message); }
 
-        Console.WriteLine("\nPOWER TEST\n");
-        Creature[] creatures = {
-        o,
-        e,
-        new Orc("Morgash", 3, 8),
-        new Elf("Elandor", 5, 3)
-        };
-        foreach (Creature creature in creatures)
-        {
-            Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
-        }
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(4, 5);
+        Rectangle rect3 = new Rectangle(p1, p2);
+        Console.WriteLine("Prostokąt utworzony z punktów: " + rect3.ToString());
+
+        Point pointToCheck = new Point(3, 3);
+        Console.WriteLine($"Czy {rect3} zawiera punkt {pointToCheck}? " + rect3.Contains(pointToCheck));
+
+        Point pointOutSide = new Point(5, 6);
+        Console.WriteLine($"Czy {rect3} zawiera punkt {pointOutSide}? " + rect3.Contains(pointOutSide)); 
+
     }
 
-    static void Lab4b()
-    {
-        object[] myObjects = {
-        new Animals() { Description = "dogs"},
-        new Birds { Description = "  eagles ", Size = 10 },
-        new Elf("e", 15, -3),
-        new Orc("morgash", 6, 4)
-    };
-        Console.WriteLine("\nMy objects:");
-        foreach (var o in myObjects) Console.WriteLine(o);
-        /*
-            My objects:
-            ANIMALS: Dogs <3>
-            BIRDS: Eagles (fly+) <10>
-            ELF: E## [10][0]
-            ORC: Morgash [6][4]
-        */
-    }
-
-
-
+    
 }
