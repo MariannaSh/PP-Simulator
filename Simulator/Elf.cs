@@ -13,10 +13,7 @@ public class Elf : Creature
 
     public void Sing() 
     { 
-        Console.WriteLine($"{Name} is singing."); 
-        _singCount++;
-
-        if(_singCount%3 == 0) { Agility++; }
+        
     }
 
     public Elf() : base() { }
@@ -27,10 +24,7 @@ public class Elf : Creature
         Agility = agility;
     }
 
-    public override void SayHi()
-    {
-        Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.");
-    }
+    public string Greeting { get; }
 
     public override int Power
     {
