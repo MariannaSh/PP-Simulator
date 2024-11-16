@@ -3,21 +3,25 @@ namespace Simulator.Maps;
 
 public class SmallSquareMap : Map
 {
-    public int Size { get; private set; }
+    public readonly int Size;
+
+    private readonly Rectangle _borders;
 
     public SmallSquareMap(int size)
     {
+
         if (size < 5 || size > 20)
         {
-            throw new ArgumentOutOfRangeException(nameof(size), "Rozmiar mapy musi być pomiędzy 5 a 20.");
+            throw new ArgumentOutOfRangeException(nameof(size),
+                "Rozmiar musi wynosić między 5 a 20");
         }
         Size = size;
+        _borders = new Rectangle(0, 0, Size - 1, Size - 1);
     }
 
     public override bool Exist(Point p)
     {
-        return (p.X >= 0 && p.X < Size)
-               && (p.Y >= 0 && p.Y < Size);
+        return _borders.Contains(p);
     }
 
     public override Point Next(Point p, Direction d)
