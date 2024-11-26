@@ -3,6 +3,7 @@ namespace Simulator.Maps;
 
 public class SmallSquareMap : SmallMap
 {
+    public SmallSquareMap(int size) : base(size, size) { }
     public SmallSquareMap(int sizeX, int sizeY) : base(sizeX, sizeY) 
     {
         if (sizeX != sizeY)
