@@ -32,6 +32,7 @@ public abstract class Map
     }
 
 
+
     /// <summary>
     /// Check if give point belongs to the map.
     /// </summary>
@@ -55,4 +56,21 @@ public abstract class Map
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
+
+
+    public abstract void Add(Creature creature, Point position);
+
+    public abstract void Remove(Creature creature, Point position);
+
+    public void Move(Creature creature, Point from, Point to)
+    {
+        if (!Exist(from) || !Exist(to)) throw new ArgumentException("Jedna z pozycji jest poza mapą!");
+        Remove(creature, from);
+        Add(creature, to);
+    }
+
+    public abstract List<Creature>? At(Point position);
+
+    public abstract List<Creature>? At(int x, int y);
+
 }

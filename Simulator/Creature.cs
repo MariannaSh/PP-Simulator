@@ -7,8 +7,6 @@ public abstract class Creature
     public Map? Map { get; private set; }
     public Point Position {get; private set;}
 
-    public void InitMapAndPosition(Map map, Point position) { }
-
     private string _name = "Unknown";
     private int _level = 1;
 
@@ -20,7 +18,7 @@ public abstract class Creature
 
             if (value == null) 
             {
-                value = "###"; 
+                _name = "###"; 
             }
             else
             {
@@ -49,7 +47,7 @@ public abstract class Creature
     }
 
 
-    public Creature(string name, int level = 1)
+    public Creature(string name, int level = 1) : this()
     {
         Name = name;
         Level = level;
@@ -61,27 +59,47 @@ public abstract class Creature
 
     public abstract string Info { get; }
 
-
-    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
-
-    public string[] Go(Direction[] directions)
+    public void InitMapAndPosition(Map map, Point position)
     {
-        //Map.Next()
-        //Map.Next() == Position - > bez ruchu
-        //Map.Move()
+        if (Map != null)
+            throw new InvalidOperationException("Ten stwór jest już przypisane do mapy.");
+
+        if (map == null)
+            throw new ArgumentNullException("Mapa nie może być null."); 
+
+        if (!map.Exist(position))
+            throw new ArgumentException("Ta pozycja nie jest prawidłowa na tej mapie.", nameof(position));
 
 
-        var result = new string[directions.Length];
-        for (int i = 0; i<directions.Length; i++)
-        {
-            result[i] = Go(directions[i]);
-        }
-        return result;
+        Map = map;
+        Position = position;
+
+        map.Add(this, position);
+    }
+
+    public string Go(Direction direction)
+    {
+        if (Map == null)
+            throw new InvalidOperationException("Stworzenie nie jest przypisane do żadnej mapy.");
+
+        Point newPosition = Map.Next(Position, direction);
+
+        if (!Map.Exist(newPosition))
+            throw new InvalidOperationException("Nowa pozycja jest poza granicami mapy.");
+
+        // Sprawdzamy, czy nowa pozycja jest zajęta
+        var creaturesAtNewPosition = Map.At(newPosition);
+        if (creaturesAtNewPosition != null && creaturesAtNewPosition.Count > 0)
+            throw new InvalidOperationException("Nowa pozycja jest zajęta przez inne stworzenia.");
+
+        // Przemieszczamy stworzenie
+        Map.Move(this, Position, newPosition);
+        Position = newPosition;
+        return $"{Name} goes {direction.ToString().ToLower()}.";
     }
 
     public abstract int Power { get; }
 
-    //out
     public override string ToString()
     {
         return $"{GetType().Name.ToUpper()}: {Info}";
