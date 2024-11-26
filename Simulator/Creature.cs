@@ -1,7 +1,14 @@
-﻿namespace Simulator;
+﻿using Simulator.Maps;
+
+namespace Simulator;
 
 public abstract class Creature
 {
+    public Map? Map { get; private set; }
+    public Point Position {get; private set;}
+
+    public void InitMapAndPosition(Map map, Point position) { }
+
     private string _name = "Unknown";
     private int _level = 1;
 
@@ -59,6 +66,11 @@ public abstract class Creature
 
     public string[] Go(Direction[] directions)
     {
+        //Map.Next()
+        //Map.Next() == Position - > bez ruchu
+        //Map.Move()
+
+
         var result = new string[directions.Length];
         for (int i = 0; i<directions.Length; i++)
         {
@@ -67,12 +79,9 @@ public abstract class Creature
         return result;
     }
 
-    public string[] Go(string directionSeq) =>
-        Go(DirectionParser.Parse(directionSeq));
-
-
     public abstract int Power { get; }
 
+    //out
     public override string ToString()
     {
         return $"{GetType().Name.ToUpper()}: {Info}";

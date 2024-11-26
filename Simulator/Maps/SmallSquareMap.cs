@@ -1,27 +1,14 @@
 ﻿
 namespace Simulator.Maps;
 
-public class SmallSquareMap : Map
+public class SmallSquareMap : SmallMap
 {
-    public readonly int Size;
-
-    private readonly Rectangle _borders;
-
-    public SmallSquareMap(int size)
+    public SmallSquareMap(int sizeX, int sizeY) : base(sizeX, sizeY) 
     {
-
-        if (size < 5 || size > 20)
+        if (sizeX != sizeY)
         {
-            throw new ArgumentOutOfRangeException(nameof(size),
-                "Rozmiar musi wynosić między 5 a 20");
+            throw new ArgumentException("SmallMap must be square. SizeX must equal SizeY.");
         }
-        Size = size;
-        _borders = new Rectangle(0, 0, Size - 1, Size - 1);
-    }
-
-    public override bool Exist(Point p)
-    {
-        return _borders.Contains(p);
     }
 
     public override Point Next(Point p, Direction d)

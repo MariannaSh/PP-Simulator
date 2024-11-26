@@ -8,25 +8,36 @@ public class SmallSquareMapTests
     public void Constructor_ValidSize_ShouldSetSize()
     {
         // Arrange
-        int size = 10;
+        int sizeX = 10, sizeY = 10;
         // Act
-        var map = new SmallSquareMap(size);
+        var map = new SmallSquareMap(sizeX, sizeY);
         // Assert
-        Assert.Equal(size, map.Size);
+        Assert.Equal(sizeX, map.SizeX);
+        Assert.Equal(sizeY, map.SizeY);
+    }
+
+    [Fact]
+    public void Constructor_NonSquareDimensions_ShouldThrowArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => new SmallSquareMap(10, 15));
+    }
+
+    [Fact]
+    public void Constructor_MinimalSize_ShouldWork()
+    {
+        var map = new SmallSquareMap(5, 5);
+        Assert.Equal(5, map.SizeX);
+        Assert.Equal(5, map.SizeY);
     }
 
     [Theory]
-    [InlineData(4)] // Mniejszy niż minimalny rozmiar
-    [InlineData(21)] // Większy niż maksymalny rozmiar
-
-    public void
-        Constructor_InvalidSize_ShouldThrowArgumentOutOfRangeException
-        (int size)
+    [InlineData(4, 5)]
+    [InlineData(5, 4)]
+    [InlineData(21, 20)]
+    [InlineData(20, 21)]
+    public void Constructor_InvalidSize_ShouldThrowArgumentOutOfRangeException(int sizeX, int sizeY)
     {
-        // Act & Assert
-        // The way to check if method throws anticipated exception:
-        Assert.Throws<ArgumentOutOfRangeException>(() =>
-             new SmallSquareMap(size));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(sizeX, sizeY));
     }
 
     [Theory]
@@ -40,7 +51,7 @@ public class SmallSquareMapTests
         int size, bool expected)
     {
         // Arrange
-        var map = new SmallSquareMap(size);
+        var map = new SmallSquareMap(size, size);
         var point = new Point(x, y);
         // Act
         var result = map.Exist(point);
@@ -60,7 +71,7 @@ public class SmallSquareMapTests
     public void Next_ShouldReturnCorrectNextPoint(int x, int y, Direction direction, int expectedX, int expectedY)
     {
         // Arrange
-        var map = new SmallSquareMap(10);
+        var map = new SmallSquareMap(10,10);
         var point = new Point(x, y);
 
         // Act
@@ -84,7 +95,7 @@ public class SmallSquareMapTests
         Direction direction, int expectedX, int expectedY)
     {
         // Arrange
-        var map = new SmallSquareMap(20);
+        var map = new SmallSquareMap(20,20);
         var point = new Point(x, y);
         // Act
         var nextPoint = map.NextDiagonal(point, direction);
