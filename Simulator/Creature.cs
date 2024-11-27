@@ -2,7 +2,7 @@
 
 namespace Simulator;
 
-public abstract class Creature
+public abstract class Creature : IMappable
 {
     public Map? Map { get; private set; }
     public Point Position {get; private set;}
@@ -77,7 +77,7 @@ public abstract class Creature
         map.Add(this, position);
     }
 
-    public string Go(Direction direction)
+    public void Go(Direction direction)
     {
         if (Map == null)
             throw new InvalidOperationException("Stworzenie nie jest przypisane do żadnej mapy.");
@@ -95,7 +95,7 @@ public abstract class Creature
         // Przemieszczamy stworzenie
         Map.Move(this, Position, newPosition);
         Position = newPosition;
-        return $"{Name} goes {direction.ToString().ToLower()}.";
+        
     }
 
     public abstract int Power { get; }

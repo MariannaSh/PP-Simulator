@@ -5,8 +5,8 @@ namespace Simulator.Maps;
 /// </summary>
 public abstract class Map
 {
-    //Add(Creature, Point)
-    //Remove(Creature, Point)
+    //Add(IMappable, Point)
+    //Remove(IMappable, Point)
     //Move(),
     //At(Point) albo x, y 
 
@@ -58,19 +58,19 @@ public abstract class Map
     public abstract Point NextDiagonal(Point p, Direction d);
 
 
-    public abstract void Add(Creature creature, Point position);
+    public abstract void Add(IMappable mappable, Point position);
 
-    public abstract void Remove(Creature creature, Point position);
+    public abstract void Remove(IMappable mappable, Point position);
 
-    public void Move(Creature creature, Point from, Point to)
+    public void Move(IMappable mappable, Point from, Point to)
     {
         if (!Exist(from) || !Exist(to)) throw new ArgumentException("Jedna z pozycji jest poza mapą!");
-        Remove(creature, from);
-        Add(creature, to);
+        Remove(mappable, from);
+        Add(mappable, to);
     }
 
-    public abstract List<Creature>? At(Point position);
+    public abstract List<IMappable>? At(Point position);
 
-    public abstract List<Creature>? At(int x, int y);
+    public abstract List<IMappable>? At(int x, int y);
 
 }

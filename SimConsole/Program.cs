@@ -11,7 +11,7 @@ internal class Program
         Console.OutputEncoding = Encoding.UTF8;
 
         SmallSquareMap map = new(5);
-        List<Creature> creatures = new() { new Orc("Gorbag"), new Elf("Elandor") };
+        List<IMappable> creatures = new() { new Orc("Gorbag"), new Elf("Elandor") };
         List<Point> points = new() { new Point(2, 2), new Point(3, 1) };
         string moves = "dlrludl";
 
