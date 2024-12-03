@@ -90,8 +90,7 @@ public class Simulation
             throw new InvalidOperationException("Simulation has already finished.");
         }
 
-        List<char> moveList = new List<char> { 'U', 'D', 'L', 'R' };
-        char moveChar = moveList[_currentMoveIndex % moveList.Count];
+        char moveChar = Moves[_currentMoveIndex % Moves.Length];
 
         Direction direction;
         try

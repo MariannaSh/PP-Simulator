@@ -54,7 +54,7 @@ public class Program
         try
         {
             SmallSquareMap map = new SmallSquareMap(8);
-            Console.WriteLine("Mapa o rozmiarze: " + map.Size);
+            Console.WriteLine("Mapa o rozmiarze: " + map.SizeX);
         }
         catch (ArgumentOutOfRangeException ex)
         {
