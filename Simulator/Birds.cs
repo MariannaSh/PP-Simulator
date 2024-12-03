@@ -1,17 +1,10 @@
-﻿namespace Simulator;
+﻿using Simulator.Maps;
 
-internal class Birds : Animals
+namespace Simulator;
+
+public class Birds : Animals
 {
     public bool CanFly { get; set; } = true;
-
-    public Birds(string description, uint size, bool canFly) : base()
-    {
-        Description = description;
-        Size = size;
-        CanFly = canFly;
-    }
-
-    public Birds() : base() { }
 
     public override string Info
     {
@@ -22,4 +15,9 @@ internal class Birds : Animals
         }
     }
 
+    public override char Symbol => CanFly ? 'B' : 'b';
+
+    protected override Point GetNewPosition(Direction direction) => CanFly
+        ? Map.Next(Map.Next(Position, direction), direction)
+        : Map.NextDiagonal(Position, direction);
 }

@@ -1,9 +1,16 @@
-﻿namespace Simulator;
+﻿using Simulator.Maps;
 
-public class Animals
+namespace Simulator;
+
+public class Animals : IMappable
 {
     private string _description = "Unknown";
     public uint Size { get; set; } = 3;
+    public Map? Map { get; private set; }
+    public Point Position { get; protected set; }
+
+    public virtual char Symbol => 'A';
+
 
     public required string Description
     {
@@ -28,6 +35,30 @@ public class Animals
     }
 
     public virtual string Info => $"{Description} <{Size}>";
+
+    public virtual void Go(Direction direction)
+    {
+        if (Map == null) throw new InvalidOperationException("Animal cannot move since it's not on the map!");
+        var newPosition = GetNewPosition(direction);
+
+        Map.Move(this, Position, newPosition);
+        Position = newPosition;
+    }
+
+    public virtual void InitMapAndPosition(Map map, Point point)
+    {
+        if (map == null) throw new ArgumentNullException(nameof(map));
+        if (Map != null) throw new InvalidOperationException("This animal is already on a map.");
+        if (!map.Exist(point)) throw new ArgumentException("Non-existing position for this map.");
+        Map = map;
+        Position = point;
+        map.Add(this, point);
+    }
+
+    protected virtual Point GetNewPosition(Direction direction)
+    {
+        return Map.Next(Position, direction);
+    }
 
     public override string ToString()
     {

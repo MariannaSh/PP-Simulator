@@ -2,6 +2,7 @@
 
 public class Elf : Creature
 {
+    public override char Symbol => 'E';
     private int _agility;
     private int _singCount = 0;
 
@@ -24,7 +25,7 @@ public class Elf : Creature
         Agility = agility;
     }
 
-    public string Greeting { get; }
+    public new string Greeting { get; set; }
 
     public override int Power
     {

@@ -3,6 +3,7 @@ namespace Simulator;
 
 public class Orc : Creature
 {
+    public override char Symbol => 'O';
     private int _rage;
     private int _huntCount = 0;
 
@@ -26,7 +27,8 @@ public class Orc : Creature
         Rage = rage;
     }
 
-    public string Greeting { get; }
+    public new string Greeting { get; set; }
+
 
     public override int Power
     {

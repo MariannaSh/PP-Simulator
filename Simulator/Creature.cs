@@ -7,6 +7,8 @@ public abstract class Creature : IMappable
     public Map? Map { get; private set; }
     public Point Position {get; private set;}
 
+    public virtual char Symbol => 'C';
+
     private string _name = "Unknown";
     private int _level = 1;
 

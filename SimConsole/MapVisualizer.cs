@@ -6,7 +6,7 @@ namespace SimConsole;
 
 public class MapVisualizer
 {
-    private readonly Map _map;
+    private Map _map;
 
     public MapVisualizer(Map map)
     {
@@ -15,59 +15,74 @@ public class MapVisualizer
 
     public void Draw()
     {
+        Console.Clear();
         Console.OutputEncoding = Encoding.UTF8;
-
         Console.Write(Box.TopLeft);
+        for (int x = 0; x < _map.SizeX; x++)
+        {
+            Console.Write(Box.Horizontal);
+        }
+        Console.WriteLine(Box.TopRight);
 
-        for (int x = 0; x < _map.SizeX - 1; x++) Console.Write($"{Box.Horizontal}{Box.TopMid}");
-        Console.WriteLine($"{Box.Horizontal}{Box.TopRight}");
-
-
-        for (int y = _map.SizeY - 1; y >= 0; y--)
+        
+        for (int y = 0; y < _map.SizeY; y++)
         {
             Console.Write(Box.Vertical);
+
             for (int x = 0; x < _map.SizeX; x++)
             {
-                var creatures = _map.At(x, y);
+                var creaturesAtPosition = _map.At(x, y);
 
-
-                if (creatures != null && creatures.Count > 1)
+                if (creaturesAtPosition.Count > 1)
                 {
                     Console.Write("X");
                 }
-
-                else if (creatures?.Count == 1)
+                else if (creaturesAtPosition.Count == 1)
                 {
-                    var creature = creatures.First();
-                    Console.Write(creature is Orc ? "O" : "E");
+                    var creature = creaturesAtPosition[0];
+
+
+                    if (creature is Orc)
+                    {
+                        Console.Write("O"); 
+                    }
+                    else if (creature is Elf)
+                    {
+                        Console.Write("E"); 
+                    }
+                    else if (creature is Birds bird)
+                    {
+
+                        Console.Write(bird.Symbol);
+                    }
+                    else if (creature is Animals)
+                    {
+                        Console.Write("A"); 
+                    }
                 }
                 else
                 {
                     Console.Write(" ");
                 }
-
-                Console.Write(Box.Vertical);
             }
-            Console.WriteLine();
 
-            if (y > 0)
+            Console.WriteLine(Box.Vertical);
+
+            if (y < _map.SizeY - 1)
             {
                 Console.Write(Box.MidLeft);
-                for (int x = 0; x < _map.SizeX - 1; x++)
+                for (int x = 0; x < _map.SizeX; x++)
                 {
-                    Console.Write($"{Box.Horizontal}{Box.Cross}");
+                    Console.Write(Box.Horizontal);
                 }
-                Console.WriteLine($"{Box.Horizontal}{Box.MidRight}");
+                Console.WriteLine(Box.MidRight);
             }
         }
-
         Console.Write(Box.BottomLeft);
-        for (int x = 0; x < _map.SizeX - 1; x++)
+        for (int x = 0; x < _map.SizeX; x++)
         {
-            Console.Write($"{Box.Horizontal}{Box.BottomMid}");
+            Console.Write(Box.Horizontal);
         }
-        Console.WriteLine($"{Box.Horizontal}{Box.BottomRight}");
-
-        Console.WriteLine();
+        Console.WriteLine(Box.BottomRight);
     }
 }
