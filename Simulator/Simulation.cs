@@ -4,7 +4,7 @@ namespace Simulator;
 
 public class Simulation
 {
-    private int _currentMoveIndex = 0;
+    public int _currentMoveIndex = 0;
 
     /// <summary>
     /// Simulation's map.
@@ -67,6 +67,11 @@ public class Simulation
 
         if (mappables.Count != positions.Count || positions == null)
             throw new ArgumentException("Liczba stworów musi odpowiadać liczbie pozycji");
+
+        if (string.IsNullOrEmpty(moves))
+        {
+            throw new ArgumentException("Moves string cannot be empty or null.");
+        }
 
         Map = map ?? throw new ArgumentNullException(nameof(map));
         IMappables = mappables;
