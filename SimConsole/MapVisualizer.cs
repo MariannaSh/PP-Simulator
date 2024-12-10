@@ -17,6 +17,8 @@ public class MapVisualizer
     {
         Console.Clear();
         Console.OutputEncoding = Encoding.UTF8;
+
+
         Console.Write(Box.TopLeft);
         for (int x = 0; x < _map.SizeX; x++)
         {
@@ -33,51 +35,45 @@ public class MapVisualizer
             {
                 var creaturesAtPosition = _map.At(x, y);
 
-                if (creaturesAtPosition.Count > 1)
+                if (creaturesAtPosition == null || creaturesAtPosition.Count == 0)
                 {
-                    Console.Write("X");
+                    Console.Write(" "); 
                 }
-                else if (creaturesAtPosition.Count == 1)
+                else if (creaturesAtPosition.Count > 1)
                 {
-                    var creature = creaturesAtPosition[0];
-
-
-                    if (creature is Orc)
-                    {
-                        Console.Write("O"); 
-                    }
-                    else if (creature is Elf)
-                    {
-                        Console.Write("E"); 
-                    }
-                    else if (creature is Birds bird)
-                    {
-
-                        Console.Write(bird.Symbol);
-                    }
-                    else if (creature is Animals)
-                    {
-                        Console.Write("A"); 
-                    }
+                    Console.Write("X"); 
                 }
                 else
                 {
-                    Console.Write(" ");
+                    var creature = creaturesAtPosition[0];
+
+                    if (creature is Orc orc)
+                    {
+                        Console.Write(orc.Symbol);
+                    }
+                    else if (creature is Elf elf)
+                    {
+                        Console.Write(elf.Symbol);
+                    }
+                    else if (creature is Birds bird)
+                    {
+                        Console.Write(bird.Symbol);
+                    }
+                    else if (creature is Animals animal)
+                    {
+                        Console.Write(animal.Symbol);
+                    }
+                    else
+                    {
+                        Console.Write("?");
+                    }
                 }
             }
 
-            Console.WriteLine(Box.Vertical);
-
-            if (y < _map.SizeY - 1)
-            {
-                Console.Write(Box.MidLeft);
-                for (int x = 0; x < _map.SizeX; x++)
-                {
-                    Console.Write(Box.Horizontal);
-                }
-                Console.WriteLine(Box.MidRight);
-            }
+            Console.WriteLine(Box.Vertical); 
         }
+
+      
         Console.Write(Box.BottomLeft);
         for (int x = 0; x < _map.SizeX; x++)
         {

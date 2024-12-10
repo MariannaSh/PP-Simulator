@@ -11,7 +11,7 @@ internal class Program
         Console.OutputEncoding = Encoding.UTF8;
 
 
-        SmallTorusMap torusMap = new(8, 6);
+        BigBounceMap bounceMap = new(8, 6);
 
         List<IMappable> creatures = new()
         {
@@ -24,19 +24,18 @@ internal class Program
 
         List<Point> points = new List<Point>
         {
-            new Point(2, 2),
-            new Point(3, 1),
-            new Point(4, 1),
-            new Point(5, 1),
-            new Point(6, 1),
-
+            new Point(0, 0),  // верхний левый угол
+            new Point(7, 0),  // верхний правый угол
+            new Point(0, 5),  // нижний левый угол
+            new Point(7, 5),  // нижний правый угол
+            new Point(3, 3),
         };
 
-        string moves = "dlrludl";
+        string moves = "dlurdruldlurdruldrul";
 
-        Simulation simulation = new Simulation(torusMap, creatures, points, moves);
+        Simulation simulation = new Simulation(bounceMap, creatures, points, moves);
 
-        MapVisualizer mapVisualizer = new MapVisualizer(torusMap);
+        MapVisualizer mapVisualizer = new MapVisualizer(bounceMap);
 
         mapVisualizer.Draw();
         Console.WriteLine("Press any key to start simulation...");
