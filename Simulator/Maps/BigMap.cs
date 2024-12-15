@@ -1,61 +1,17 @@
-﻿namespace Simulator.Maps;
+﻿    namespace Simulator.Maps;
 
-public abstract class BigMap : Map
-{
-    private readonly Dictionary<Point, List<IMappable>> _fields;
-
-    public BigMap(int sizeX, int sizeY) : base(sizeX, sizeY)
+    public abstract class BigMap : Map
     {
-        if (sizeX > 1000)
-            throw new ArgumentOutOfRangeException(nameof(sizeX), "Map too wide");
+        private readonly Dictionary<Point, List<IMappable>> _fields;
 
-        if (sizeY > 1000)
-            throw new ArgumentOutOfRangeException(nameof(sizeY), "Map too high");
-
-        _fields = new Dictionary<Point, List<IMappable>>();
-    }
-
-    public override void Add(IMappable mappable, Point position)
-    {
-        if (!Exist(position))
-            throw new ArgumentOutOfRangeException("Position is out of map bounds.");
-
-        if (!_fields.ContainsKey(position))
+        public BigMap(int sizeX, int sizeY) : base(sizeX, sizeY)
         {
-            _fields[position] = new List<IMappable>();
-        }
-        _fields[position].Add(mappable);
+            if (sizeX > 1000)
+                throw new ArgumentOutOfRangeException(nameof(sizeX), "Map too wide");
 
-    }
+            if (sizeY > 1000)
+                throw new ArgumentOutOfRangeException(nameof(sizeY), "Map too high");
 
-
-    public override void Remove(IMappable mappable, Point position)
-    {
-        if (!Exist(position))
-            throw new ArgumentException("Position is out of map bounds.");
-
-        if (_fields.ContainsKey(position))
-        {
-            _fields[position].Remove(mappable);
-
-            if (_fields[position].Count == 0)
-            {
-                _fields.Remove(position);
-            }
+            _fields = new Dictionary<Point, List<IMappable>>();
         }
     }
-
-    public override List<IMappable>? At(Point position)
-    {
-        if (!Exist(position))
-            throw new ArgumentOutOfRangeException("Position is out of map bounds.");
-
-        return _fields.ContainsKey(position) ? _fields[position] : null;
-    }
-
-    public override List<IMappable>? At(int x, int y)
-    {
-        return At(new Point(x, y));
-    }
-
-}
