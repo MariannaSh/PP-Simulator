@@ -1,8 +1,8 @@
 ﻿using Simulator.Maps;
 using Simulator;
 using System.Text;
-
 namespace SimConsole;
+
 
 internal class Program
 {
@@ -32,14 +32,12 @@ internal class Program
 
         string moves = "dlurdruldlurdruldrul";
 
-        //Simulation simulation = new Simulation(bounceMap, creatures, points, moves);
-        //MapVisualizer mapVisualizer = new MapVisualizer(bounceMap);
-
         try
         {
             var simulation = new Simulation(bounceMap, creatures, points, moves);
 
             var simulationHistory = new SimulationHistory(simulation);
+            var mapVisualizer = new MapVisualizer(bounceMap);
 
             while (!simulation.Finished)
             {
@@ -48,26 +46,22 @@ internal class Program
                 Console.WriteLine($"Turn {simulation._currentMoveIndex + 1}");
 
                 simulation.Turn();
-
-                var mapVisualizer = new MapVisualizer(bounceMap);
                 mapVisualizer.Draw();
-
-                System.Threading.Thread.Sleep(500);
             }
 
             Console.WriteLine("Simulation finished!");
             Console.WriteLine("\n=== Simulation History ===");
+
             int[] turnsToShow = { 5, 10, 15, 20 };
+
 
             foreach (var turn in turnsToShow)
             {
-                if (turn - 1 < simulationHistory.TotalTurns)
+                if (turn - 1 < simulationHistory.TurnLogs.Count)
                 {
                     Console.WriteLine($"\nTurn {turn}:");
-                    var snapshot = simulationHistory.GetSnapshot(turn - 1);
 
-                    var mapVisualizer = new MapVisualizer(bounceMap);
-                    mapVisualizer.DrawSnapshot(snapshot);
+                    mapVisualizer.DrawTurnLog(simulationHistory, turn - 1); // Pass the history and the turn index
                 }
                 else
                 {
@@ -80,5 +74,4 @@ internal class Program
             Console.WriteLine($"Error: {ex.Message}");
         }
     }
-
 }
