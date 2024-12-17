@@ -30,7 +30,7 @@ internal class Program
             new Point(3, 3),
         };
 
-        string moves = "dlurdruldlurdruldrul";
+        string moves = "dlurdruldlurdrulrd";
 
         try
         {

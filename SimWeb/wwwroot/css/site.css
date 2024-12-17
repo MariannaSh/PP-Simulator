@@ -1,0 +1,164 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #800000;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: white;
+    color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+h4 span {
+    letter-spacing: 2px;
+}
+
+.text-center {
+    padding-bottom: 30px;
+}
+
+.centered-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.navbar {
+    background-color: #800000 !important;
+    color: #e7eaf6;
+}
+
+    .navbar .nav-link {
+        color: white !important;
+        font-weight: bold;
+    }
+
+    .navbar .navbar-brand {
+        color: white !important;
+        font-weight: bold;
+    }
+
+    .navbar .nav-link:hover {
+        color: black !important;
+    }
+
+.display-4 {
+    font-weight: bold;
+}
+
+.simulation-grid {
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+.simulation-grid td {
+        width: 85px;
+        height: 85px;
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid #800000;
+        font-weight: bold;
+        font-size: 18px;
+        background-color: #f8f9fa;
+    }
+
+.grid-icon {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+}
+
+.legend {
+    margin-top: 30px;
+    background-color: #f7f7f7;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+    .legend h4 {
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    .legend ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        .legend ul li {
+            margin-bottom: 8px;
+        }
+
+.controls-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.turn-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.turn-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    color: #800000;
+    font-family: 'Andale Mono', monospace;
+}
+
+.arrow-button {
+    width: 75px;
+    height: 75px;
+    cursor: pointer;
+}
+
+.info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.current-info {
+    font-size: 2.0rem;
+    text-align: center;
+    color: #800000;
+    font-weight: bold;
+    font-family: 'Andale Mono', monospace;
+}
+
+.container-footer {
+    text-align: center;
+    color: #800000;
+}

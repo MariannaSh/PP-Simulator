@@ -81,24 +81,15 @@ public abstract class Creature : IMappable
 
     public void Go(Direction direction)
     {
-        if (Map == null)
-            throw new InvalidOperationException("Stworzenie nie jest przypisane do żadnej mapy.");
 
-        Point newPosition = Map.Next(Position, direction);
+        if (Map == null) throw new InvalidOperationException("Creature cannot move since it's not on the map!");
 
-        if (!Map.Exist(newPosition))
-            throw new InvalidOperationException("Nowa pozycja jest poza granicami mapy.");
+        var newPosition = Map.Next(Position, direction);
 
-        // Sprawdzamy, czy nowa pozycja jest zajęta
-        var creaturesAtNewPosition = Map.At(newPosition);
-        if (creaturesAtNewPosition != null && creaturesAtNewPosition.Count > 0)
-            throw new InvalidOperationException("Nowa pozycja jest zajęta przez inne stworzenia.");
-
-        // Przemieszczamy stworzenie
         Map.Move(this, Position, newPosition);
         Position = newPosition;
-        
     }
+
 
     public abstract int Power { get; }
 
