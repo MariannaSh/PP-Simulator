@@ -98,11 +98,5 @@ public abstract class Map
         return _fields[position.X, position.Y];
     }
 
-    public List<IMappable>? At(int x, int y)
-    {
-        if (x < 0 || x >= SizeX || y < 0 || y >= SizeY)
-            throw new ArgumentOutOfRangeException("Coordinates are out of map bounds.");
-
-        return _fields[x, y];
-    }
+    public List<IMappable>? At(int x, int y) => At(new Point(x, y));
 }

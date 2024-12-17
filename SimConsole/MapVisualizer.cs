@@ -15,7 +15,7 @@ public class MapVisualizer
 
     public void Draw()
     {
-        Console.Clear();
+        //Console.Clear();
         Console.OutputEncoding = Encoding.UTF8;
 
 

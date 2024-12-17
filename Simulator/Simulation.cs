@@ -88,7 +88,7 @@ public class Simulation
     /// Makes one move of current mappable in current direction.
     /// Throw error if simulation is finished.
     /// </summary>
-    public void Turn() 
+    public void Turn()
     {
         if (Finished)
         {
@@ -107,10 +107,12 @@ public class Simulation
             throw new InvalidOperationException($"Invalid move character: '{moveChar}'. Valid moves: 'U', 'D', 'L', 'R'.");
         }
 
+        // Применяем движение
         CurrentIMappable.Go(direction);
 
         _currentMoveIndex++;
 
+        // Проверка завершения симуляции после хода
         if (_currentMoveIndex >= Moves.Length)
         {
             Finished = true;

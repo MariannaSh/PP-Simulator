@@ -1,8 +1,8 @@
 ﻿using Simulator.Maps;
 using Simulator;
 using System.Text;
-namespace SimConsole;
 
+namespace SimConsole;
 
 internal class Program
 {
@@ -34,34 +34,40 @@ internal class Program
 
         try
         {
+            // Создание симуляции
             var simulation = new Simulation(bounceMap, creatures, points, moves);
+            var mapVisualizer = new MapVisualizer(bounceMap);
+
+            Console.WriteLine("SIMULATION!");
+            Console.WriteLine("\n---Starting Positions---");
+            Console.WriteLine("Initial layout of the map with creatures:");
+            mapVisualizer.Draw(); 
 
             var simulationHistory = new SimulationHistory(simulation);
-            var mapVisualizer = new MapVisualizer(bounceMap);
 
             while (!simulation.Finished)
             {
-                Console.Clear();
+                
                 Console.WriteLine("SIMULATION!");
                 Console.WriteLine($"Turn {simulation._currentMoveIndex + 1}");
 
                 simulation.Turn();
-                mapVisualizer.Draw();
+                mapVisualizer.Draw(); 
             }
 
             Console.WriteLine("Simulation finished!");
-            Console.WriteLine("\n=== Simulation History ===");
 
-            int[] turnsToShow = { 5, 10, 15, 20 };
+            Console.WriteLine("\n---Simulation History---");
 
+            int[] turnsToShow = { 5, 10, 15, 20 ,30};
+            var logVisualizer = new LogVisualizer(simulationHistory);
 
             foreach (var turn in turnsToShow)
             {
                 if (turn - 1 < simulationHistory.TurnLogs.Count)
                 {
                     Console.WriteLine($"\nTurn {turn}:");
-
-                    mapVisualizer.DrawTurnLog(simulationHistory, turn - 1); // Pass the history and the turn index
+                    logVisualizer.Draw(turn - 1);
                 }
                 else
                 {
@@ -73,5 +79,6 @@ internal class Program
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
+
     }
 }
